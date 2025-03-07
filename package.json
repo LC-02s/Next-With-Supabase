@@ -1,0 +1,44 @@
+{
+  "name": "next-with-supabase",
+  "private": true,
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "lint": "turbo run lint",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "check-types": "turbo run check-types",
+    "add:todo": "pnpm -F todo add",
+    "build:todo": "pnpm -F todo build",
+    "dev:todo": "pnpm -F todo dev",
+    "lint:todo": "pnpm -F todo lint",
+    "start:todo": "pnpm -F todo start",
+    "type:todo": "pnpm -F todo check-types",
+    "add:dropbox": "pnpm -F dropbox add",
+    "build:dropbox": "pnpm -F dropbox build",
+    "dev:dropbox": "pnpm -F dropbox dev",
+    "lint:dropbox": "pnpm -F dropbox lint",
+    "start:dropbox": "pnpm -F dropbox start",
+    "type:dropbox": "pnpm -F dropbox check-types",
+    "add:netflix": "pnpm -F netflix add",
+    "build:netflix": "pnpm -F netflix build",
+    "dev:netflix": "pnpm -F netflix dev",
+    "lint:netflix": "pnpm -F netflix lint",
+    "start:netflix": "pnpm -F netflix start",
+    "type:netflix": "pnpm -F netflix check-types",
+    "add:instagram": "pnpm -F instagram add",
+    "build:instagram": "pnpm -F instagram build",
+    "dev:instagram": "pnpm -F instagram dev",
+    "lint:instagram": "pnpm -F instagram lint",
+    "start:instagram": "pnpm -F instagram start",
+    "type:instagram": "pnpm -F instagram check-types"
+  },
+  "devDependencies": {
+    "prettier": "^3.5.3",
+    "turbo": "^2.4.4",
+    "typescript": "5.8.2"
+  },
+  "packageManager": "pnpm@9.1.0",
+  "engines": {
+    "node": ">=20"
+  }
+}
