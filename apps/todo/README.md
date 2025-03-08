@@ -6,7 +6,48 @@
 
 ## 🖥️ 실행 화면
 
+<table>
+   <thead>
+      <tr>
+         <th>할 일 생성</th>
+         <th>할 일 수정</th>
+      </tr>
+   </thead>
+   <tbody>
+      <tr>
+         <td>
+            <video src="https://github.com/user-attachments/assets/2cd483e5-a52a-4214-9078-d17b588aa8c6" />
+         </td>
+         <td>
+            <video src="https://github.com/user-attachments/assets/859ebf5a-1248-4598-9451-ac793248e555" />
+         </td>
+      </tr>
+   </tbody>
+</table>
+
 <br />
+
+<table>
+   <thead>
+      <tr>
+         <th>할 일 검색</th>
+         <th>할 일 삭제</th>
+      </tr>
+   </thead>
+   <tbody>
+      <tr>
+         <td>
+            <video src="https://github.com/user-attachments/assets/608ff435-c8e8-4a95-8dde-aea4801dd826" />
+         </td>
+         <td>
+            <video src="https://github.com/user-attachments/assets/4291bd68-a1c0-4275-887e-c52844b06dd7" />
+         </td>
+      </tr>
+   </tbody>
+</table>
+
+<br />
+
 
 ## 📋 기능 명세
 
