@@ -1,4 +1,5 @@
-import type { Metadata } from 'next'
+import { Metadata } from 'next'
+
 import { Pretendard } from './assets/font'
 import { Provider } from './provider'
 

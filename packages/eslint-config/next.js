@@ -15,7 +15,6 @@ import { config as baseConfig } from './base.js'
  * */
 export const nextJsConfig = [
   ...baseConfig,
-  ...pluginTailWindCSS.configs['flat/recommended'],
   {
     ...pluginReact.configs.flat.recommended,
     languageOptions: {
@@ -34,6 +33,7 @@ export const nextJsConfig = [
       'jsx-a11y': pluginJSXA11y,
       import: pluginImport,
       prettier: pluginPrettier,
+      tailwindcss: pluginTailWindCSS,
     },
     rules: {
       ...pluginNext.configs.recommended.rules,
@@ -46,13 +46,15 @@ export const nextJsConfig = [
         'warn',
         {
           pathGroups: [
-            { pattern: '@/app/**/*', group: 'internal', position: 'after' },
-            { pattern: '@/widgets/**/*', group: 'internal', position: 'after' },
-            { pattern: '@/features/**/*', group: 'internal', position: 'after' },
-            { pattern: '@/entities/**/*', group: 'internal', position: 'after' },
-            { pattern: '@/shared/**/*', group: 'internal', position: 'after' },
+            { pattern: '@/app/**/*', group: 'external', position: 'after' },
+            { pattern: '@/widgets/**/*', group: 'external', position: 'after' },
+            { pattern: '@/features/**/*', group: 'external', position: 'after' },
+            { pattern: '@/entities/**/*', group: 'external', position: 'after' },
+            { pattern: '@/shared/**/*', group: 'external', position: 'after' },
           ],
           alphabetize: { order: 'asc' },
+          'newlines-between': 'always',
+          distinctGroup: false,
         },
       ],
       'import/no-unresolved': 'off',
@@ -66,4 +68,5 @@ export const nextJsConfig = [
       'prettier/prettier': 'warn',
     },
   },
+  ...pluginTailWindCSS.configs['flat/recommended'],
 ]

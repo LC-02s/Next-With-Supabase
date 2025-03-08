@@ -39,10 +39,10 @@ const QueryProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
 }
 
 export const Provider: React.FC<React.PropsWithChildren> = ({ children }) => (
-  <MantineProvider theme={defaultThemeSchema} defaultColorScheme="auto">
-    <ColorSchemeScript defaultColorScheme="auto" />
-    <ModalsProvider labels={{ confirm: '확인', cancel: '취소' }}>
-      <QueryProvider>{children}</QueryProvider>
-    </ModalsProvider>
-  </MantineProvider>
+  <QueryProvider>
+    <MantineProvider theme={defaultThemeSchema} defaultColorScheme="auto">
+      <ColorSchemeScript defaultColorScheme="auto" />
+      <ModalsProvider labels={{ confirm: '확인', cancel: '취소' }}>{children}</ModalsProvider>
+    </MantineProvider>
+  </QueryProvider>
 )
