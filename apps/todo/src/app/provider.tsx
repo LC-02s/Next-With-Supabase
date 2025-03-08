@@ -5,6 +5,7 @@ import { ModalsProvider } from '@mantine/modals'
 import { defaultThemeSchema } from '@next-with-supabase/tailwind-config/base'
 import { isServer, QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+import { Toaster } from 'react-hot-toast'
 
 let browserQueryClient: QueryClient | undefined = undefined
 
@@ -39,10 +40,13 @@ const QueryProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
 }
 
 export const Provider: React.FC<React.PropsWithChildren> = ({ children }) => (
-  <MantineProvider theme={defaultThemeSchema} defaultColorScheme="auto">
-    <ColorSchemeScript defaultColorScheme="auto" />
-    <ModalsProvider labels={{ confirm: '확인', cancel: '취소' }}>
-      <QueryProvider>{children}</QueryProvider>
-    </ModalsProvider>
-  </MantineProvider>
+  <QueryProvider>
+    <MantineProvider theme={defaultThemeSchema} defaultColorScheme="auto">
+      <ColorSchemeScript defaultColorScheme="auto" />
+      <ModalsProvider labels={{ confirm: '확인', cancel: '취소' }}>
+        {children}
+        <Toaster position="bottom-right" />
+      </ModalsProvider>
+    </MantineProvider>
+  </QueryProvider>
 )

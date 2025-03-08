@@ -13,6 +13,7 @@
     "lint:todo": "pnpm -F todo lint",
     "start:todo": "pnpm -F todo start",
     "type:todo": "pnpm -F todo check-types",
+    "gen-type:todo": "pnpm -F todo gen-types",
     "add:dropbox": "pnpm -F dropbox add",
     "build:dropbox": "pnpm -F dropbox build",
     "dev:dropbox": "pnpm -F dropbox dev",

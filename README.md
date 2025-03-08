@@ -1,6 +1,6 @@
 # 인프런 워밍업 클럽 3기 - 풀스택(Next.js + Supabase) 스터디
 
-해당 레포지토리는 인프런에서 진행하는 [워밍업 클럽 3기 - 풀스택(Next.js + Supabase) 스터디](https://www.inflearn.com/course/offline/warmup-club-3-fs)에서 진행하는 미션 저장소입니다. 총 4주차(03.04 ~ 03.28)에 걸쳐 [To Do List](/apps/todo/README.md), [Dropbox 클론](/apps/drop-box/README.md), [Netflix 클론](/apps/netflix/README.md), [인스타그램 클론](/apps/instagram/README.md) 프로젝트로 구성될 예정입니다.
+해당 레포지토리는 인프런에서 진행하는 [워밍업 클럽 3기 - 풀스택(Next.js + Supabase) 스터디](https://www.inflearn.com/course/offline/warmup-club-3-fs)에서 수행하는 미션 저장소입니다. 총 4주차(03.04 ~ 03.28)에 걸쳐 [Todo List](/apps/todo/README.md), [Dropbox 클론](/apps/drop-box/README.md), [Netflix 클론](/apps/netflix/README.md), [인스타그램 클론](/apps/instagram/README.md) 프로젝트로 구성될 예정입니다.
 
 <br />
 
@@ -20,7 +20,7 @@
 
 ```bash
 ├── apps/
-│   ├── todo/        # [1주차] To Do List
+│   ├── todo/        # [1주차] Todo List
 │   ├── dropbox/     # [2주차] 드롭박스 클론
 │   ├── netflix/     # [3주차] 넷플릭스 클론
 │   └── instagram/   # [4주차] 인스타그램 클론
@@ -56,7 +56,27 @@ pnpm add:todo dayjs  # todo 프로젝트에 dayjs 설치
 
 <br />
 
+### 환경 변수
+
+환경 변수는 각각의 프로젝트의 루트 경로에 `.env.local` 파일으로 생성해주세요.
+
+```bash
+SUPABASE_URL=           # supabse 서버의 Project URL 입력해주세요.
+SUPABASE_ANON_KEY=      # supabse 서버의 Anon Public API Key를 입력해주세요.
+SUPABASE_SERVICE_ROLE=  # supabse 서버의 Secret Service Role을 입력해주세요.
+SUPABASE_DB_PASSWORD=   # supabse 서버의 DB 패스워드를 입력해주세요.
+```
+
+<br />
+
 ### 개발 환경
+
+요구 환경:
+
+```text
+- Node.js @^20
+- pnpm @9.1.0
+```
 
 의존성 설치:
 

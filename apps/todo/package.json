@@ -8,13 +8,15 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint --max-warnings 0",
-    "check-types": "tsc --noEmit"
+    "check-types": "tsc --noEmit",
+    "gen-types": "pnpm dlx supabase gen types typescript --schema public > src/entities/lib/supabase-table.ts --project-id"
   },
   "dependencies": {
     "@mantine/core": "^7.17.1",
     "@mantine/form": "^7.17.1",
     "@mantine/hooks": "^7.17.1",
     "@mantine/modals": "^7.17.1",
+    "@supabase/ssr": "^0.5.2",
     "@tabler/icons-react": "^3.31.0",
     "@tanstack/react-query": "^5.67.1",
     "@tanstack/react-query-devtools": "^5.67.1",
@@ -23,6 +25,7 @@
     "next": "^15.2.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-hot-toast": "^2.5.2",
     "tailwind-merge": "^2.6.0",
     "zustand": "^5.0.3"
   },
