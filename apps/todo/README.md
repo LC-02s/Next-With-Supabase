@@ -1,6 +1,6 @@
 # Next With Supabase: Todo List
 
-인프런에서 진행하는 [워밍업 클럽 3기 - 풀스택(Next.js + Supabase) 스터디](https://www.inflearn.com/course/offline/warmup-club-3-fs)의 1주차 미션, Next.js 와 Supabse를 기반으로 제작된 Todo List 앱입니다.
+인프런에서 진행하는 [워밍업 클럽 3기 - 풀스택(Next.js + Supabase) 스터디](https://www.inflearn.com/course/offline/warmup-club-3-fs)의 1주차 미션, Next.js 와 Supabse를 기반으로 제작된 Todo List 앱입니다. 작성한 발자국은 [여기](https://www.inflearn.com/blogs/9576)에서 보실 수 있습니다.
 
 <br />
 
@@ -48,7 +48,6 @@
 
 <br />
 
-
 ## 📋 기능 명세
 
 해당 프로젝트는 아래의 기능 명세를 기반으로 제작되었습니다.
@@ -71,7 +70,7 @@
 - 데이터베이스: `Supabase`
 - 서버 상태관리: `Tanstack Query v5`
 - 클라이언트 상태관리: `Zustand v5`
-- 스타일 프레임워크: `TailWindCSS v3`, `Mantine v7`
+- 스타일 프레임워크: `TailWindCSS v3`, `Mantine v7`, `Tabler Icons`
 - 모노레포: `Turbo Repo`
 - 패키지 매니저: `pnpm`
 
@@ -83,13 +82,13 @@
 
 ### Next.js + Supabase
 
-Next.js의 `Server Actions`와 Supabase의 `Server Client` 환경을 통합한 환경에서 모든 API 로직을 작성하였습니다. 작성된 모든 API는 별도의 `Route Handler`를 거치지 않아 특정한 엔드포인트를 관리하지 않으며, 추가적인 Validation 과정 없이 TypeScript 기반의 인터페이스로 관리됩니다.
+Next.js의 `Server Actions` 와 Supabase의 `createServerClient` 를 통합한 환경에서 모든 API 로직을 작성하였습니다. 작성된 모든 API는 별도의 `Route Handler` 를 거치지 않아 특정한 엔드포인트를 관리하지 않으며, 추가적인 Validation 과정 없이 TypeScript 기반의 인터페이스를 사용할 수 있습니다.
 
 <br />
 
 ### Next.js + Tanstack Query
 
-`Server Actions` 특성상 Next.js에서 확장하여 제공하는 `fetch`의 기능을 사용하지 못하기 때문에, 조회 로직에서는 `Tanstack Query`의 `prefetchQuery`와 `HydrationBoundary`를 활용하여 `SSR` 및 `Server Component` 환경을 통합하였습니다. 또한 데이터 수정 및 삭제 로직에는 UX를 고려하여 낙관적 업데이트를 구현 후 적용하였으며, `Tanstack Query`가 사용된 모든 로직에는 Query Key Factor 방식을 사용하여 효율적으로 관리할 수 있었습니다.
+`Server Actions` 특성상 Next.js에서 확장하여 제공하는 `fetch` 의 `revalidate` 관련 기능을 사용하지 못하기 때문에, 조회 로직에서는 `Tanstack Query` 의 `prefetchQuery` 와 `HydrationBoundary` 를 활용하여 `SSR` 및 `Server Component` 환경을 통합하였습니다. 또한 데이터 수정 및 삭제 로직에는 UX를 고려하여 낙관적 업데이트를 구현 후 적용하였으며, `Tanstack Query` 가 사용된 모든 로직에는 Query Key Factor 방식을 사용하여 효율적으로 관리할 수 있었습니다.
 
 <br />
 
@@ -105,13 +104,13 @@ Next.js의 `Server Actions`와 Supabase의 `Server Client` 환경을 통합한 �
 
 ### FSD 아키텍처
 
-해당 프로젝트는 FSD 아키텍처를 기반으로 설계되었지만, 사용되는 도메인이 하나뿐인 해당 프로젝트의 특성을 고려하여 `slice` 레이어는 사용하지 않고 `segment`로만 구성하였습니다.
+해당 프로젝트는 FSD 아키텍처를 기반으로 설계되었지만, 사용되는 도메인이 하나뿐인 해당 프로젝트의 특성을 고려하여 `slice` 레이어는 사용하지 않고 `segment` 로만 구성하였습니다.
 
 <br />
 
 ### 예외 처리
 
-예외 처리 로직은 [공용 Exception 클래스](/apps/todo/src/shared/api/exception.ts)를 기반하여 작성되었습니다. 해당 클래스를 통하여 예외로 판단되지 않는 경우에 대해서만 에러로 처리합니다.
+모든 예외 처리 로직은 [공용 예외 처리 클래스](/apps/todo/src/shared/api/exception.ts)를 기반하여 작성되었습니다. 해당 클래스를 통하여 예외를 판단합니다.
 
 <br />
 
@@ -128,7 +127,7 @@ Next.js의 `Server Actions`와 Supabase의 `Server Client` 환경을 통합한 �
 
 ### 환경 변수
 
-- `SUPABASE_URL`: supabse 서버의 Project URL 입력해주세요.
+- `SUPABASE_URL`: supabse 서버의 Project URL을 입력해주세요.
 - `SUPABASE_ANON_KEY`: supabse 서버의 Anon Public API Key를 입력해주세요.
 - `SUPABASE_SERVICE_ROLE`: supabse 서버의 Secret Service Role을 입력해주세요.
 
