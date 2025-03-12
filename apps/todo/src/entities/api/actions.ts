@@ -72,17 +72,14 @@ export const updateTodo: UpdateTodo = async ({ id, title, completed }) => {
     return
   }
 
+  const updatedAt = new Date().toISOString()
   const { error } = await client
     .from('todo')
     .update({
       title,
       completed,
-      updated_at: new Date().toISOString(),
-      completed_at: isCompletedChanged
-        ? completed
-          ? new Date().toISOString()
-          : null
-        : prevTodo.completed_at,
+      updated_at: updatedAt,
+      completed_at: isCompletedChanged ? (completed ? updatedAt : null) : prevTodo.completed_at,
     })
     .eq('id', id)
 

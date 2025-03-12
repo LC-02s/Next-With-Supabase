@@ -39,17 +39,14 @@ export const useUpdateTodo = ({
           return prev?.map((todo) => {
             if (todo.id === id) {
               const isCompletedChanged = todo.completed !== completed
+              const updatedAt = new Date().toISOString()
 
               return {
                 ...todo,
                 title,
                 completed,
-                updatedAt: new Date().toISOString(),
-                completedAt: isCompletedChanged
-                  ? completed
-                    ? new Date().toISOString()
-                    : null
-                  : todo.completedAt,
+                updatedAt,
+                completedAt: isCompletedChanged ? (completed ? updatedAt : null) : todo.completedAt,
               }
             }
 
