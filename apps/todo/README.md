@@ -1,6 +1,6 @@
 # Next With Supabase: Todo List
 
-인프런에서 진행하는 [워밍업 클럽 3기 - 풀스택(Next.js + Supabase) 스터디](https://www.inflearn.com/course/offline/warmup-club-3-fs)의 1주차 미션, Next.js 와 Supabse를 기반으로 제작된 Todo List 앱입니다. 작성한 발자국은 [여기](https://www.inflearn.com/blogs/9576)에서 보실 수 있습니다.
+인프런에서 진행하는 [워밍업 클럽 3기 - 풀스택(Next.js + Supabase) 스터디](https://www.inflearn.com/course/offline/warmup-club-3-fs)의 1주차 미션, Next.js 와 Supabse의 Database 기능을 기반으로 제작된 Todo List 앱입니다. 작성한 발자국은 [여기](https://www.inflearn.com/blogs/9576)에서 보실 수 있습니다.
 
 <br />
 
@@ -130,6 +130,7 @@ Next.js의 `Server Actions` 와 Supabase의 `createServerClient` 를 통합한 �
 - `SUPABASE_URL`: supabse 서버의 Project URL을 입력해주세요.
 - `SUPABASE_ANON_KEY`: supabse 서버의 Anon Public API Key를 입력해주세요.
 - `SUPABASE_SERVICE_ROLE`: supabse 서버의 Secret Service Role을 입력해주세요.
+- `NEXT_PUBLIC_DOMAIN_ADDRESS_PREFIX`: 추가 시 배포 환경에서 필요한 prefix를 지정할 수 있습니다. (필수 X)
 
 <br />
 

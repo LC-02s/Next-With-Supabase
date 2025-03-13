@@ -4,6 +4,7 @@ import { TextInput, Kbd, ActionIcon } from '@mantine/core'
 import { useForm } from '@mantine/form'
 import { IconSearch, IconX } from '@tabler/icons-react'
 import { useRouter } from 'next/navigation'
+import { ROOT_PATH } from '@/shared/config'
 import { cn, PropsWithClassName } from '@/shared/lib'
 
 export interface SearchTodoInputProps extends PropsWithClassName {
@@ -26,7 +27,7 @@ export const SearchTodoInput: React.FC<SearchTodoInputProps> = ({
       onSubmit={form.onSubmit(({ query }) => {
         const targetQuery = query.trim()
 
-        push(targetQuery ? `/?q=${encodeURI(targetQuery)}` : '/')
+        push(targetQuery ? `${ROOT_PATH}?q=${encodeURI(targetQuery)}` : ROOT_PATH)
         form.setValues({ query: targetQuery })
       })}
     >
