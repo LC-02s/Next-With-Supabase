@@ -1,2 +1,5 @@
 export * from './class-name'
 export * from './format-date'
+export * from './size-to-mb'
+export * from './extract-extension'
+export * from './download-image'

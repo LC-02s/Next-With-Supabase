@@ -20,6 +20,7 @@
     "lint:dropbox": "pnpm -F dropbox lint",
     "start:dropbox": "pnpm -F dropbox start",
     "type:dropbox": "pnpm -F dropbox check-types",
+    "gen-type:dropbox": "pnpm -F dropbox gen-types",
     "add:netflix": "pnpm -F netflix add",
     "build:netflix": "pnpm -F netflix build",
     "dev:netflix": "pnpm -F netflix dev",

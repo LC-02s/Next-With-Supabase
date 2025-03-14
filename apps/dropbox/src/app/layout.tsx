@@ -14,8 +14,16 @@ export const metadata: Metadata = {
 
 const RootLayout: React.FC<React.PropsWithChildren> = ({ children }) => (
   <html lang="ko" className={Pretendard.variable} suppressHydrationWarning>
-    <body>
-      <Provider>{children}</Provider>
+    <body className="relative min-w-[17.5rem] bg-gray-50 dark:bg-dark-800">
+      <Provider>
+        <main
+          id="main"
+          className="mx-auto min-h-screen w-full max-w-screen-md flex-1 p-6"
+          style={{ backgroundColor: 'var(--mantine-color-body)' }}
+        >
+          {children}
+        </main>
+      </Provider>
     </body>
   </html>
 )

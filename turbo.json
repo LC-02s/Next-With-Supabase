@@ -9,6 +9,7 @@
         "SUPABASE_ANON_KEY",
         "SUPABASE_SERVICE_ROLE",
         "SUPABASE_DB_PASSWORD",
+        "SUPABASE_BUCKET_NAME",
         "NEXT_PUBLIC_DOMAIN_ADDRESS_PREFIX"
       ],
       "inputs": ["$TURBO_DEFAULT$", ".env*"],
