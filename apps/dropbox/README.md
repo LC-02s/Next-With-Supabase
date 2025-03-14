@@ -16,10 +16,10 @@
    <tbody>
       <tr>
          <td>
-            <video src="" />
+            <video src="https://github.com/user-attachments/assets/b4c7e565-49bd-4e2a-8f3b-66cb46d1c934" />
          </td>
          <td>
-            <video src="" />
+            <video src="https://github.com/user-attachments/assets/6a0e6b39-2bc0-4417-ace5-01e7cfe6938c" />
          </td>
       </tr>
    </tbody>
@@ -37,10 +37,10 @@
    <tbody>
       <tr>
          <td>
-            <video src="" />
+            <video src="https://github.com/user-attachments/assets/74d6d09f-66a7-4786-af8e-91d9739c8619" />
          </td>
          <td>
-            <video src="" />
+            <video src="https://github.com/user-attachments/assets/245e7f42-ed3e-4f6f-afd8-228e4d75ce46" />
          </td>
       </tr>
    </tbody>
@@ -57,7 +57,7 @@
    <tbody>
       <tr>
          <td>
-            <video src="" />
+            <video src="https://github.com/user-attachments/assets/09fb3840-5840-4353-9e59-3f71d4af245c" />
          </td>
       </tr>
    </tbody>
@@ -219,10 +219,10 @@ export const getImages = async ({ query = '' }: GetImagesParams): Promise<Droppe
    <tbody>
       <tr>
          <td>
-            <img src="" alt="" />
+            <img width="270" alt="output - 정상적인 경우" src="https://github.com/user-attachments/assets/ff2df81b-8d7b-4348-805d-de53ef128d83" />
          </td>
          <td>
-            <img src="" alt="" />
+            <img width="330" alt="output - 문제 상황" src="https://github.com/user-attachments/assets/5d5623a5-9e52-4fe9-8422-21b37c09793d" />
          </td>
       </tr>
    </tbody>
