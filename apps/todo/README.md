@@ -130,7 +130,7 @@ Next.js의 `Server Actions` 와 Supabase의 `createServerClient` 를 통합한 �
 - `SUPABASE_URL`: supabse 서버의 Project URL을 입력해주세요.
 - `SUPABASE_ANON_KEY`: supabse 서버의 Anon Public API Key를 입력해주세요.
 - `SUPABASE_SERVICE_ROLE`: supabse 서버의 Secret Service Role을 입력해주세요.
-- `NEXT_PUBLIC_DOMAIN_ADDRESS_PREFIX`: 추가 시 배포 환경에서 필요한 prefix를 지정할 수 있습니다. (필수 X)
+- `NEXT_PUBLIC_DOMAIN_ADDRESS_PREFIX`: 추가 시 배포 환경에서 필요한 prefix를 지정할 수 있어요. (필수 X)
 
 <br />
 
@@ -145,7 +145,7 @@ pnpm install
 ### Supabase Table Schema 인터페이스 생성
 
 ```bash
-pnpm gen-type:todo [projectId] # supabase 프로젝트 아이디를 입력해주세요
+pnpm gen-type:todo [projectId] # supabase 프로젝트 아이디를 함께 입력해주세요
 ```
 
 <br />
