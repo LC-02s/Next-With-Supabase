@@ -1,6 +1,6 @@
 # Next With Supabase: Dropbox
 
-인프런에서 진행하는 [워밍업 클럽 3기 - 풀스택(Next.js + Supabase) 스터디](https://www.inflearn.com/course/offline/warmup-club-3-fs)의 2주차 미션, Next.js 와 Supabse의 Storage 기능을 기반으로 제작된 Dropbox 클론 프로젝트입니다.
+인프런에서 진행하는 [워밍업 클럽 3기 - 풀스택(Next.js + Supabase) 스터디](https://www.inflearn.com/course/offline/warmup-club-3-fs)의 2주차 미션, Next.js 와 Supabse의 Storage 기능을 기반으로 제작된 Dropbox 클론 프로젝트입니다. 작성한 발자국은 [여기](https://www.inflearn.com/blogs/9844)에서 보실 수 있습니다.
 
 <br />
 
@@ -117,7 +117,7 @@ Next.js의 `Server Actions` 와 Supabase의 `createServerClient` 를 통합한 �
 
 ### 파일명에 한글이 포함될 경우 Supabase Storage에 업로드하지 못하는 문제
 
-이미지 파일 이름에 한글이 포함될 경우 업로드가 되지 않는 문제가 있었습니다. 이슈를 찾아보니 Supabase Storage의 정책적인 문제였고, AWS의 S3 서비스도 동일한 문제를 가지고 있었기에, 아래 조치들을 취하였습니다.
+이미지 파일 이름에 한글이 포함될 경우 업로드가 되지 않는 문제가 있었습니다. 이슈를 찾아보니 Supabase Storage의 정책적인 문제였고, AWS의 S3 서비스도 동일한 문제를 가지고 있었기에 아래 조치들을 취하였습니다.
 
 <br />
 
@@ -229,6 +229,8 @@ export const getImages = async ({ query = '' }: GetImagesParams): Promise<Droppe
 </table>
 
 <br />
+
+**조치**
 
 기존에 사용하던 `ilike` 쿼리를 제거하고, 자바스크립트에서 지원하는 `String.prototype.normalize` 메서드를 사용하여 기존 데이터에 대한 정규형 정준 결합(Normalization Form Canonical Composition) 절차를 거친 후 필터링을 거치는 방법으로 해결하였습니다.
 
