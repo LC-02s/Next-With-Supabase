@@ -6,6 +6,43 @@
 
 ## 🖥️ 실행 화면
 
+<table>
+   <thead>
+      <tr>
+         <th>영화 목록 및 상세 정보 조회</th>
+      </tr>
+   </thead>
+   <tbody>
+      <tr>
+         <td>
+            <video src="https://github.com/user-attachments/assets/f31f2f42-a76d-4032-b61a-0c4c9b601b4f" />
+         </td>
+      </tr>
+   </tbody>
+</table>
+
+<br />
+
+<table>
+   <thead>
+      <tr>
+         <th>찜 기능</th>
+         <th>검색 기능</th>
+      </tr>
+   </thead>
+   <tbody>
+      <tr>
+         <td>
+            <video src="https://github.com/user-attachments/assets/05495676-989e-418d-b4fa-37fdedb2cdcb" />
+         </td>
+         <td>
+            <video src="https://github.com/user-attachments/assets/ca5531f4-b813-439f-8c99-2f7563470536" />
+         </td>
+      </tr>
+   </tbody>
+</table>
+
+<br />
 <br />
 
 ## 📋 기능 명세
