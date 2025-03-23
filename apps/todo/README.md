@@ -92,6 +92,21 @@ Next.js의 `Server Actions` 와 Supabase의 `createServerClient` 를 통합한 �
 
 <br />
 
+### Table Schema
+
+```sql
+CREATE TABLE todo (
+    id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    title TEXT NOT NULL,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    completed BOOLEAN NOT NULL DEFAULT FALSE,
+    completed_at TIMESTAMPTZ
+);
+```
+
+<br />
+
 ## ✨ 컨벤션 가이드
 
 <br />

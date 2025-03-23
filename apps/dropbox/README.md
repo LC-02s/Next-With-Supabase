@@ -111,6 +111,19 @@ Next.js의 `Server Actions` 와 Supabase의 `createServerClient` 를 통합한 �
 
 <br />
 
+### Table Schema
+
+```sql
+CREATE TABLE minibox (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    name TEXT NOT NULL,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+```
+
+<br />
+
 ## 🚨 트러블 슈팅
 
 <br />
