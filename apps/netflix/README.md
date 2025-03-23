@@ -1,6 +1,6 @@
 # Next With Supabase: Netflix Clone
 
-인프런에서 진행하는 [워밍업 클럽 3기 - 풀스택(Next.js + Supabase) 스터디](https://www.inflearn.com/course/offline/warmup-club-3-fs)의 3주차 미션, Next.js 와 Supabse의 Database 기능을 기반으로 제작된 Netflix Clone 앱입니다.
+인프런에서 진행하는 [워밍업 클럽 3기 - 풀스택(Next.js + Supabase) 스터디](https://www.inflearn.com/course/offline/warmup-club-3-fs)의 3주차 미션, Next.js 와 Supabse의 Database 기능을 기반으로 제작된 Netflix Clone 앱입니다. 작성한 발자국은 [여기](https://www.inflearn.com/blogs/10101)에서 보실 수 있습니다.
 
 <br />
 
@@ -87,7 +87,30 @@ Next.js의 `Server Actions` 와 Supabase의 `createServerClient` 를 통합한 �
 
 ### Next.js + Tanstack Query
 
-`Server Actions` 특성상 Next.js에서 확장하여 제공하는 `fetch` 의 `revalidate` 관련 기능을 사용하지 못하기 때문에, 조회 로직에서는 `Tanstack Query` 의 `prefetchQuery` 와 `HydrationBoundary` 를 활용하여 `SSR` 및 `Server Component` 환경을 통합하였습니다. 또한 데이터 수정 로직에는 UX를 고려하여 낙관적 업데이트를 구현 후 적용하였으며, `Tanstack Query` 가 사용된 모든 로직에는 Query Key Factor 방식을 사용하여 효율적으로 관리할 수 있었습니다.
+`Server Actions` 특성상 Next.js에서 확장하여 제공하는 `fetch` 의 `revalidate` 관련 기능을 사용하지 못하기 때문에, 영화 상세 정보 조회 로직에서는 `Tanstack Query` 의 `prefetchQuery` 와 `HydrationBoundary` 를 활용하여 `SSR` 및 `Server Component` 환경을 통합하였습니다. 또한 데이터 수정 로직에는 UX를 고려하여 낙관적 업데이트를 구현 후 적용하였으며, `Tanstack Query` 가 사용된 모든 로직에는 Query Key Factor 방식을 사용하여 효율적으로 관리할 수 있었습니다.
+
+<br />
+
+### Cursor Based Pagination
+
+커서 기반 페이지네이션은 옵셋 기반 페이지네이션에서 발생할 수 있는 데이터 추가 또는 삭제 시 페이지 별 인덱스가 꼬여 다른 페이지에 같은 데이터가 존재하거나 특정 데이터를 건너뛰는 문제가 없기에 무한스크롤 기능에 조금 더 적합하다고 판단하여 커서 기반 페이지네이션을 적용하였습니다.
+
+<br />
+
+### Table Schema
+
+```sql
+CREATE TABLE movie (
+    id SERIAL PRIMARY KEY,
+    image_url TEXT NOT NULL,
+    title TEXT NOT NULL,
+    overview TEXT NOT NULL,
+    vote_average FLOAT8 NOT NULL,
+    popularity FLOAT8 NOT NULL,
+    release_date DATE NOT NULL,
+    is_like BOOLEAN NOT NULL DEFAULT FALSE
+);
+```
 
 <br />
 
