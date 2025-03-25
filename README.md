@@ -42,7 +42,7 @@
 컨벤션:
 
 - 서비스 이름: `todo`, `dropbox`, `netflix`, `instagram`
-- 지원 명령어: `add`, `dev`, `build`, `lint`, `start`, `type`
+- 지원 명령어: `add`, `dev`, `build`, `lint`, `start`, `type`, `gen-type`
 
 ```bash
 pnpm 명령어:[서비스 이름] 옵션
@@ -61,8 +61,8 @@ pnpm add:todo dayjs  # todo 프로젝트에 dayjs 설치
 환경 변수는 각각의 프로젝트의 루트 경로에 `.env.local` 파일으로 생성해주세요.
 
 ```bash
-SUPABASE_URL=           # supabse 서버의 Project URL을 입력해주세요.
-SUPABASE_ANON_KEY=      # supabse 서버의 Anon Public API Key를 입력해주세요.
+NEXT_PUBLIC_SUPABASE_URL=           # supabse 서버의 Project URL을 입력해주세요.
+NEXT_PUBLIC_SUPABASE_ANON_KEY=      # supabse 서버의 Anon Public API Key를 입력해주세요.
 SUPABASE_SERVICE_ROLE=  # supabse 서버의 Secret Service Role을 입력해주세요.
 SUPABASE_DB_PASSWORD=   # supabse 서버의 DB 패스워드를 입력해주세요.
 ```

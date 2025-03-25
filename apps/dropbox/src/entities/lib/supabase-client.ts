@@ -13,8 +13,10 @@ export const createServerSupabaseClient: (params?: {
   const cookieStore = await cookies()
 
   return createServerClient<Database>(
-    process.env.SUPABASE_URL!,
-    role === 'admin' ? process.env.SUPABASE_SERVICE_ROLE! : process.env.SUPABASE_ANON_KEY!,
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    role === 'admin'
+      ? process.env.SUPABASE_SERVICE_ROLE!
+      : process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     {
       cookies: {
         get(name: string) {
