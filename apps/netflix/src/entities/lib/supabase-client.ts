@@ -7,16 +7,12 @@ import { Database } from './supabase-table'
 
 export type SupabaseClient = ReturnType<typeof createServerClient<Database>>
 
-export const createServerSupabaseClient: (params?: {
-  role?: 'admin' | 'anon'
-}) => Promise<SupabaseClient> = async ({ role = 'anon' } = {}) => {
+export const createServerSupabaseClient: () => Promise<SupabaseClient> = async () => {
   const cookieStore = await cookies()
 
   return createServerClient<Database>(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    role === 'admin'
-      ? process.env.SUPABASE_SERVICE_ROLE!
-      : process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     {
       cookies: {
         get(name: string) {
