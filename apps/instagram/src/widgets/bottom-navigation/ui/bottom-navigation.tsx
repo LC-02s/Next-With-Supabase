@@ -71,7 +71,7 @@ export const BottomNavigation: React.FC = () => {
         </li>
         <li className="flex h-full flex-1 items-center justify-center">
           <Button
-            href={PATH.PROFILE}
+            href={PATH.MY_PROFILE}
             title="프로필"
             className="flex size-full items-center justify-center"
             component={Link}
@@ -79,7 +79,7 @@ export const BottomNavigation: React.FC = () => {
             color="gray"
           >
             {!session ? (
-              pathname === PATH.PROFILE ? (
+              pathname.startsWith(PATH.MY_PROFILE) ? (
                 <IconUserFilled />
               ) : (
                 <IconUser strokeWidth={DEFAULT_STROKE_WIDTH} />
@@ -88,7 +88,7 @@ export const BottomNavigation: React.FC = () => {
               <ProfileAvatar
                 userId={session.id}
                 className={
-                  pathname === PATH.PROFILE
+                  pathname.startsWith(PATH.MY_PROFILE)
                     ? 'border-2 !border-blue-700 dark:!border-white'
                     : undefined
                 }

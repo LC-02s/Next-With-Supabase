@@ -32,5 +32,5 @@ export const PreviewImage: React.FC<PreviewImageProps> = ({ image }) => {
     return null
   }
 
-  return <Image src={previewURL} alt={image.name} fill />
+  return <Image src={previewURL} alt={image.name} className="object-cover" fill />
 }

@@ -7,7 +7,7 @@ import { PATH } from '@/shared/config'
 
 export const NeedLogin: React.FC = () => {
   return (
-    <div className="flex min-h-80 flex-col items-center justify-center rounded-xl bg-gray-50 p-3 dark:bg-dark-600">
+    <div className="m-4 flex min-h-80 flex-col items-center justify-center rounded-xl bg-gray-50 p-3 dark:bg-dark-600">
       <div className="mx-auto mb-4 rounded-full bg-[var(--mantine-color-gray-light)] p-4">
         <IconShieldLock color="var(--mantine-color-gray-light-color)" />
       </div>

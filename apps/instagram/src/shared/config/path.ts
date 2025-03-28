@@ -1,3 +1,5 @@
+import { createSearchParamsToURL } from '../lib'
+
 export const PATH = {
   ROOT: '/',
   LOGIN: '/auth/login',
@@ -8,5 +10,8 @@ export const PATH = {
   INITIAL_SETTING: '/auth/register/initial-setting',
   SEARCH: '/search',
   FOLLOWING: '/my/following',
-  PROFILE: '/my/profile',
+  FOLLOWER: createSearchParamsToURL('/my/following')(['tab', 'follower']),
+  PROFILE: (displayId: string) => `/profile/${displayId}` as const,
+  MY_PROFILE: '/my/profile',
+  PROFILE_SETTING: '/my/profile/setting',
 } as const

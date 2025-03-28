@@ -25,3 +25,19 @@ export const isValidName = (value: string) => {
 
   return null
 }
+
+export const isValidProfileImage = (value: File | null | undefined) => {
+  if (!value) {
+    return '파일을 읽어올 수 없어요'
+  }
+
+  if (!value.type.startsWith('image/')) {
+    return '이미지 파일만 업로드 가능해요'
+  }
+
+  if (value.size > 1024 * 1024 * 3) {
+    return '파일 크기는 3MB 이하로 설정해주세요'
+  }
+
+  return value
+}

@@ -6,6 +6,10 @@ const nextConfig = {
       bodySizeLimit: '5mb',
     },
   },
+  images: {
+    unoptimized: true,
+    minimumCacheTTL: 0,
+  },
   async rewrites() {
     return [
       {

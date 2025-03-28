@@ -4,10 +4,15 @@ import { Button, InputLabel, TextInput } from '@mantine/core'
 import { useForm } from '@mantine/form'
 import { useState } from 'react'
 import toast from 'react-hot-toast'
-import { isValidDisplayId, isValidName, useCreateProfile, UserProfile } from '@/entities/profile'
+import {
+  isValidDisplayId,
+  isValidName,
+  isValidProfileImage,
+  useCreateProfile,
+  UserProfile,
+  PreviewImage,
+} from '@/entities/profile'
 import { createSearchParamsToURL } from '@/shared/lib'
-
-import { PreviewImage } from './preview-image'
 
 export type ProfileFormProps = Pick<UserProfile, 'userId'>
 
@@ -43,7 +48,7 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ userId }) => {
       >
         <div className="mb-16 space-y-4">
           <div>
-            <InputLabel htmlFor={form.key('displayId')} required>
+            <InputLabel className="mb-1" htmlFor={form.key('displayId')} required>
               아이디
             </InputLabel>
             <TextInput
@@ -56,7 +61,7 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ userId }) => {
             />
           </div>
           <div>
-            <InputLabel htmlFor={form.key('name')} required>
+            <InputLabel className="mb-1" htmlFor={form.key('name')} required>
               이름
             </InputLabel>
             <TextInput
@@ -68,7 +73,7 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ userId }) => {
             />
           </div>
           <div>
-            <InputLabel htmlFor={form.key('name')} required>
+            <InputLabel className="mb-1" htmlFor={form.key('name')} required>
               프로필 이미지
             </InputLabel>
             <TextInput
@@ -83,25 +88,16 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ userId }) => {
                 const target = e.target as HTMLInputElement
                 const file = target.files?.[0]
 
-                const handleError = (message: string) => {
-                  toast.error(message)
+                const result = isValidProfileImage(file)
+
+                if (typeof result === 'string') {
+                  toast.error(result)
                   setFile(null)
                   target.value = ''
+                  return
                 }
 
-                if (!file) {
-                  return handleError('파일을 읽어올 수 없어요')
-                }
-
-                if (!file.type.startsWith('image/')) {
-                  return handleError('이미지 파일만 업로드 가능해요')
-                }
-
-                if (file.size > 1024 * 1024 * 3) {
-                  return handleError('파일 크기는 3MB 이하로 설정해주세요')
-                }
-
-                setFile(file)
+                setFile(result)
               }}
             />
           </div>

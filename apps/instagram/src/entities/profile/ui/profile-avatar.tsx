@@ -6,33 +6,41 @@ import { cn, PropsWithClassName } from '@/shared/lib'
 import { useProfileQuery } from '../api'
 import { UserProfile } from '../model'
 
-export type ProfileAvatarProps = PropsWithClassName<Pick<UserProfile, 'userId'>>
+export interface ProfileAvatarProps extends PropsWithClassName<Pick<UserProfile, 'userId'>> {
+  classNames?: {
+    root?: string
+    image?: string
+    icon?: string
+  }
+}
 
-export const ProfileAvatar: React.FC<ProfileAvatarProps> = ({ userId, className }) => {
+export const ProfileAvatar: React.FC<ProfileAvatarProps> = ({ userId, className, classNames }) => {
   const { data, isLoading, isError } = useProfileQuery({ userId })
-
-  if (isError) {
-    return <IconExclamationCircle color="var(--mantine-color-red-text)" />
-  }
-
-  if (isLoading || !data) {
-    return <Loader size="xs" />
-  }
 
   return (
     <div
       className={cn(
         'size-8 overflow-hidden rounded-full flex justify-center border border-solid border-gray-300 bg-gray-200 dark:bg-dark-600 dark:border-dark-600 items-center',
         className,
+        classNames?.root,
       )}
     >
-      <Image
-        src={data.imageURL}
-        alt={`${data.name} 프로필`}
-        width={160}
-        height={160}
-        className="size-full object-cover"
-      />
+      {isError ? (
+        <IconExclamationCircle
+          className={cn('size-4', classNames?.icon)}
+          color="var(--mantine-color-placeholder)"
+        />
+      ) : isLoading || !data ? (
+        <Loader size="xs" color="var(--mantine-color-placeholder)" />
+      ) : (
+        <Image
+          src={data.imageURL}
+          alt={`${data.name} 프로필`}
+          width={160}
+          height={160}
+          className={cn('size-full object-cover', classNames?.image)}
+        />
+      )}
     </div>
   )
 }

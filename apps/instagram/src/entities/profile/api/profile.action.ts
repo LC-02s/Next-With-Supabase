@@ -13,7 +13,7 @@ export interface SearchProfilesParams {
 export const searchProfiles = async ({
   keyword = '',
   cursor = null,
-  size = 12,
+  size = 20,
 }: SearchProfilesParams): Promise<{
   data: Omit<UserProfile, 'userId'>[]
   nextCursor: number | null
@@ -26,7 +26,11 @@ export const searchProfiles = async ({
   let query = client.from('profile').select('*').order('id', { ascending: true })
 
   if (keyword) {
-    query = query.ilike(keyword.startsWith('@') ? 'display_id' : 'name', `%${keyword}%`)
+    if (keyword.startsWith('@')) {
+      query = query.ilike('display_id', `%${keyword.slice(1)}%`)
+    } else {
+      query = query.ilike('name', `%${keyword}%`)
+    }
   }
 
   if (!first) {
@@ -86,6 +90,39 @@ export const getUserProfile = async ({
   }
 }
 
+export type GetUserProfileByDisplayIdParams = Pick<UserProfile, 'displayId'>
+
+export const getUserProfileByDisplayId = async ({
+  displayId,
+}: GetUserProfileByDisplayIdParams): Promise<UserProfile | null> => {
+  const client = await createServerSupabaseClient()
+  const { data, error } = await client
+    .from('profile')
+    .select('*')
+    .eq('display_id', displayId)
+    .single()
+
+  if (error?.code === 'PGRST116') {
+    return null
+  }
+
+  if (error) {
+    throw new Exception('프로필 조회에 실패했어요')
+  }
+
+  if (!data) {
+    return null
+  }
+
+  return {
+    id: data.id,
+    userId: data.user_id,
+    displayId: data.display_id,
+    name: data.name,
+    imageURL: data.image_url,
+  }
+}
+
 export interface CreateProfileParams extends Pick<UserProfile, 'userId' | 'displayId' | 'name'> {
   imageFile: File
 }
@@ -108,7 +145,7 @@ export const createProfile = async ({
   }
 
   const queryResponse = await client.from('profile').insert({
-    display_id: `@${displayId.trim()}`,
+    display_id: displayId.trim(),
     name: name.trim(),
     image_url: `/images/${process.env.SUPABASE_BUCKET_NAME!}/${imagePath}`,
   })
@@ -127,7 +164,13 @@ export type UpdateProfileParams = Pick<UserProfile, 'userId'> &
 
 export const updateProfile = async ({ userId, displayId, name }: UpdateProfileParams) => {
   const client = await createServerSupabaseClient()
-  const { error } = await client
+  const queryResponse = await client.from('profile').select('*').eq('user_id', userId).single()
+
+  if (queryResponse.error || !queryResponse.data) {
+    throw new Exception('프로필을 찾을 수 없어요')
+  }
+
+  const mutationResponse = await client
     .from('profile')
     .update({
       display_id: displayId?.trim(),
@@ -135,8 +178,53 @@ export const updateProfile = async ({ userId, displayId, name }: UpdateProfilePa
     })
     .eq('user_id', userId)
 
-  if (error) {
+  if (mutationResponse.error?.code === '23505') {
+    throw new Exception('중복되는 아이디에요')
+  }
+
+  if (mutationResponse.error) {
     throw new Exception('프로필 업데이트에 실패했어요')
+  }
+}
+
+export interface UpdateProfileImageParams extends Pick<UserProfile, 'userId'> {
+  imageFile: File
+}
+
+export const updateProfileImage = async ({ userId, imageFile }: UpdateProfileImageParams) => {
+  const client = await createServerSupabaseClient()
+  const queryResponse = await client.from('profile').select('*').eq('user_id', userId).single()
+
+  if (queryResponse.error || !queryResponse.data) {
+    throw new Exception('프로필을 찾을 수 없어요')
+  }
+
+  const prev = queryResponse.data.image_url.split('/')
+  const prevPath = prev[prev.length - 1]
+
+  if (!prevPath) {
+    throw new Exception('프로필 이미지 변경에 실패했어요')
+  }
+
+  const imagePath = `${queryResponse.data.user_id}.${imageFile.type.split('/')[1]}`
+
+  await client.storage.from(process.env.SUPABASE_BUCKET_NAME!).remove([prevPath])
+
+  const storageResponse = await client.storage
+    .from(process.env.SUPABASE_BUCKET_NAME!)
+    .upload(imagePath, imageFile, { upsert: true })
+
+  if (storageResponse.error) {
+    throw new Exception('프로필 이미지 변경에 실패했어요')
+  }
+
+  const mutationResponse = await client
+    .from('profile')
+    .update({ image_url: `/images/${process.env.SUPABASE_BUCKET_NAME!}/${imagePath}` })
+    .eq('user_id', userId)
+
+  if (mutationResponse.error) {
+    throw new Exception('프로필 이미지 변경에 실패했어요')
   }
 }
 
