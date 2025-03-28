@@ -33,7 +33,8 @@
     "dev:instagram": "pnpm -F instagram dev",
     "lint:instagram": "pnpm -F instagram lint",
     "start:instagram": "pnpm -F instagram start",
-    "type:instagram": "pnpm -F instagram check-types"
+    "type:instagram": "pnpm -F instagram check-types",
+    "gen-type:instagram": "pnpm -F instagram gen-types"
   },
   "devDependencies": {
     "prettier": "^3.5.3",
