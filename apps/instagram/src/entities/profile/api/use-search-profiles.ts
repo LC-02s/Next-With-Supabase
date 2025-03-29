@@ -14,8 +14,8 @@ export const useSearchProfilesQuery = ({ keyword }: UseSearchProfilesQueryParams
     queryKey: profileQueryKeys.search({ keyword }),
     queryFn: ({ pageParam }) => searchProfiles({ keyword, cursor: pageParam }),
     select: ({ pages }) => pages.flatMap((response) => response.data),
-    initialPageParam: 1,
-    getNextPageParam: ({ first, last, nextCursor }) => (first || last ? null : nextCursor),
+    initialPageParam: null as number | null,
+    getNextPageParam: ({ nextCursor }) => nextCursor,
     enabled: !!keyword,
   })
 

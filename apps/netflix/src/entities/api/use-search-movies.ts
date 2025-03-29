@@ -10,8 +10,8 @@ export const useSearchMoviesInfiniteQuery = ({ keyword, like }: UseSearchMoviesP
     queryKey: movieQueryKeys.list({ keyword, like }),
     queryFn: ({ pageParam }) => searchMovies({ keyword, cursor: pageParam, like }),
     select: ({ pages }) => pages.flatMap((response) => response.data),
-    initialPageParam: 1,
-    getNextPageParam: ({ first, last, nextCursor }) => (first || last ? null : nextCursor),
+    initialPageParam: null as number | null,
+    getNextPageParam: ({ nextCursor }) => nextCursor,
   })
 
 export const useResetSearchMoviesInfiniteQuery = () => {

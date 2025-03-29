@@ -16,7 +16,7 @@ export const useFollowingListInfiniteQuery = ({
     queryKey: followingQueryKeys.followingList({ userId }),
     queryFn: ({ pageParam }) => getFollowingList({ userId, cursor: pageParam }),
     select: ({ pages }) => pages.flatMap((response) => response.data),
-    initialPageParam: 1,
-    getNextPageParam: ({ first, last, nextCursor }) => (first || last ? null : nextCursor),
+    initialPageParam: null as number | null,
+    getNextPageParam: ({ nextCursor }) => nextCursor,
     enabled: !!userId,
   })
