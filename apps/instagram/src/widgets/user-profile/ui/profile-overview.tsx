@@ -1,9 +1,9 @@
 'use client'
 
 import { Button, Skeleton } from '@mantine/core'
-import { IconSend, IconUserPlus } from '@tabler/icons-react'
+import { IconSend, IconUserMinus, IconUserPlus } from '@tabler/icons-react'
 import Image from 'next/image'
-import { useFollowerCount, useFollowingCount } from '@/entities/following/api'
+import { FollowButton, useFollowerCount, useFollowingCount } from '@/entities/following'
 import { UserProfile } from '@/entities/profile'
 
 type ProfileOverviewInnerProps = React.PropsWithChildren<
@@ -30,6 +30,7 @@ const ProfileOverviewInner: React.FC<ProfileOverviewInnerProps> = ({
             width={160}
             height={160}
             className="size-full object-cover"
+            priority
           />
         </div>
         <div className="w-full flex-1">
@@ -72,13 +73,27 @@ export const ProfileOverview: React.FC<ProfileOverviewProps> = (props) => {
   return (
     <ProfileOverviewInner {...props}>
       <div className="flex flex-col items-center justify-center gap-2 xs:flex-row">
-        <Button
-          variant="default"
-          className="w-full flex-1"
-          leftSection={<IconUserPlus className="size-4" />}
-        >
-          팔로우
-        </Button>
+        <FollowButton targetId={props.userId}>
+          {({ onClick, isFollowing, disabled, pending }) => (
+            <Button
+              variant="default"
+              className="w-full flex-1"
+              leftSection={
+                isFollowing ? (
+                  <IconUserMinus className="size-4" />
+                ) : (
+                  <IconUserPlus className="size-4" />
+                )
+              }
+              onClick={onClick}
+              disabled={disabled}
+              loading={pending}
+              loaderProps={{ type: 'dots' }}
+            >
+              {isFollowing ? '팔로우 취소' : '팔로우'}
+            </Button>
+          )}
+        </FollowButton>
         <Button
           variant="default"
           className="w-full flex-1"

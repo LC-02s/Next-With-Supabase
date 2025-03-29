@@ -17,6 +17,10 @@ export const GET = async (request: NextRequest) => {
     error,
   } = await confirmRegister(code)
 
+  if (error?.code === 'validation_failed') {
+    return NextResponse.redirect(to(['status', 'login-failed-in-register']))
+  }
+
   if (error) {
     return NextResponse.redirect(to(['status', 'register-failed']))
   }

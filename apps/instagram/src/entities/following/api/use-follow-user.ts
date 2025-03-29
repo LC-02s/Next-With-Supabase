@@ -3,10 +3,10 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { Exception } from '@/shared/api'
 
-import { followUser } from './following.action'
+import { followUser, FollowUserParams } from './following.action'
 import { followingQueryKeys } from './query-keys'
 
-export interface UseFollowUserParams {
+export interface UseFollowUserParams extends FollowUserParams {
   onMutate?: () => void
   onSuccess?: () => void
   onException?: (error: Exception) => void
@@ -14,6 +14,7 @@ export interface UseFollowUserParams {
 }
 
 export const useFollowUser = ({
+  following,
   onMutate,
   onSuccess,
   onException,
@@ -23,8 +24,8 @@ export const useFollowUser = ({
 
   return useMutation({
     mutationKey: followingQueryKeys.all,
-    mutationFn: async (...params: Parameters<typeof followUser>) =>
-      followUser(...params).catch((error) => {
+    mutationFn: async () =>
+      followUser({ following }).catch((error) => {
         throw new Exception(error.message)
       }),
     onMutate: () => {

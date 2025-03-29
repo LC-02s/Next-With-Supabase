@@ -29,6 +29,10 @@ const MESSAGES: Record<string, { status: 'success' | 'error'; message: string }>
     status: 'success',
     message: '환영합니다!',
   },
+  'login-failed-in-register': {
+    status: 'success',
+    message: '다시 로그인 해주세요',
+  },
   'already-login': {
     status: 'error',
     message: '이미 로그인 하셨어요',

@@ -18,7 +18,6 @@
 1. 로그인 기능
    - 이메일 기반 로그인
      - Confirmation URL 방식
-   - 카카오 간편 로그인
    - 프로필 설정
      - 아이디 설정 기능
      - 이름 설정 기능
@@ -29,7 +28,6 @@
 3. 채팅 기능
    - 메시지 삭제 기능
    - 메시지 읽음 상태 확인 기능
-   - 메시지 신고 기능
 
 <br />
 
@@ -57,20 +55,44 @@ Next.js의 `Server Actions` 와 Supabase의 `createServerClient` 를 통합한 �
 
 ### Next.js + Tanstack Query
 
-Next.js의 `Server Actions`과 함께 대상 데이터 수정 및 삭제 로직에는 UX를 고려하여 낙관적 업데이트를 구현 후 적용하였으며, `Tanstack Query` 가 사용된 모든 로직에는 Query Key Factor 방식을 사용하여 효율적으로 관리할 수 있었습니다.
+`Server Actions` 특성상 Next.js에서 확장하여 제공하는 `fetch` 의 `revalidate` 관련 기능을 사용하지 못하기 때문에, 일부 데이터 조회 로직에서는 `Tanstack Query` 의 `prefetchQuery` 와 `HydrationBoundary` 를 활용하여 `SSR` 및 `Server Component` 환경을 통합하였습니다. 또한 `Tanstack Query` 가 사용된 모든 로직에는 Query Key Factor 방식을 사용하여 효율적으로 관리할 수 있었습니다.
 
 <br />
 
 ### Cursor Based Pagination
 
-커서 기반 페이지네이션은 옵셋 기반 페이지네이션에서 발생할 수 있는 데이터 추가 또는 삭제 시 페이지 별 인덱스가 꼬여 다른 페이지에 같은 데이터가 존재하거나 특정 데이터를 건너뛰는 문제가 없기에 무한스크롤 기능에 조금 더 적합하다고 판단하여 커서 기반 페이지네이션을 적용하였습니다.
+커서 기반 페이지네이션은 옵셋 기반 페이지네이션에서 발생할 수 있는 데이터 추가 또는 삭제 시 페이지 별 인덱스가 꼬여 다른 페이지에 같은 데이터가 존재하거나 특정 데이터를 건너뛰는 문제가 없기에 무한스크롤 기능에 조금 더 적합하다고 판단하여 검색 결과, 팔로잉 및 팔로워 목록 데이터 조회 로직에 커서 기반 페이지네이션을 적용하였습니다.
 
 <br />
 
 ### Table Schema
 
 ```sql
+CREATE TABLE profile (
+    id SERIAL PRIMARY KEY,
+    user_id UUID NOT NULL UNIQUE,
+    display_id TEXT NOT NULL UNIQUE,
+    name TEXT NOT NULL,
+    image_url TEXT NOT NULL,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
 
+CREATE TABLE following (
+    id SERIAL PRIMARY KEY,
+    follower UUID NOT NULL REFERENCES profile(user_id) ON DELETE CASCADE,
+    following UUID NOT NULL REFERENCES profile(user_id) ON DELETE CASCADE,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    is_banned BOOLEAN DEFAULT FALSE
+);
+
+CREATE TABLE message (
+    id SERIAL PRIMARY KEY,
+    content TEXT NOT NULL,
+    sender UUID NOT NULL REFERENCES profile(user_id) ON DELETE CASCADE,
+    receiver UUID NOT NULL REFERENCES profile(user_id) ON DELETE CASCADE,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    is_deleted BOOLEAN DEFAULT FALSE
+);
 ```
 
 <br />
@@ -87,9 +109,22 @@ Next.js의 `Server Actions`과 함께 대상 데이터 수정 및 삭제 로직�
 
 ### FSD 아키텍처
 
-해당 프로젝트는 FSD 아키텍처를 기반으로 설계되었습니다.
+해당 프로젝트는 FSD 아키텍처를 기반으로 설계되었습니다. 불필요한 복잡성을 늘리지 않기 위해 `pages(views)` 레이어와 `features` 레이어는 포함하지 않았습니다.
 
-(폴더 구조 및 도메인 적어놓기)
+<br />
+
+```bash
+├── src/
+│   ├── app/
+│   ├── widgets/
+│   ├── entities/
+│   │   ├── auth/       # 인증 도메인
+│   │   ├── chat/       # 채팅 도메인
+│   │   ├── profile/    # 프로필 도메인
+│   │   └── following/  # 팔로잉 도메인
+│   └── shared/
+└── README.md
+```
 
 <br />
 
@@ -116,7 +151,6 @@ Next.js의 `Server Actions`과 함께 대상 데이터 수정 및 삭제 로직�
 - `NEXT_PUBLIC_SUPABASE_ANON_KEY`: supabse 서버의 Anon Public API Key를 입력해주세요.
 - `SUPABASE_SERVICE_ROLE`: supabse 서버의 Secret Service Role을 입력해주세요.
 - `SUPABASE_BUCKET_NAME`: supabse 서버의 Bucket 이름을 입력해주세요.
-- `NEXT_PUBLIC_DOMAIN_ADDRESS_PREFIX`: 추가 시 배포 환경에서 필요한 prefix를 지정할 수 있어요. (필수 X)
 
 <br />
 

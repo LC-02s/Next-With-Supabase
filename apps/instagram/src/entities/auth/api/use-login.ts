@@ -27,8 +27,16 @@ export const useLogin = ({ onMutate, onSuccess, onException, onError }: UseLogin
     mutationFn: async ({ email, password }: LoginWithEmailParams) => {
       const { error } = await client.auth.signInWithPassword({ email, password })
 
-      if (error) {
+      if (error?.code === 'email_not_confirmed') {
+        throw new Exception('이메일 인증을 완료해 주세요')
+      }
+
+      if (error?.code === 'invalid_credentials') {
         throw new Exception('이메일 또는 비밀번호를 확인해 주세요')
+      }
+
+      if (error) {
+        throw new Exception('로그인에 실패했어요')
       }
     },
     onMutate: () => {

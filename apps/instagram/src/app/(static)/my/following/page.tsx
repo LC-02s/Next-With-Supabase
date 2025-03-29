@@ -1,4 +1,5 @@
 import { Metadata } from 'next'
+import { FollowingTabs } from '@/widgets/following-list'
 import { WithAuth } from '@/entities/auth'
 
 export const metadata: Metadata = {
@@ -6,9 +7,9 @@ export const metadata: Metadata = {
 }
 
 const FollowingPage: React.FC = () => (
-  <div>
-    <WithAuth />
-  </div>
+  <WithAuth>
+    <FollowingTabs />
+  </WithAuth>
 )
 
 export default FollowingPage

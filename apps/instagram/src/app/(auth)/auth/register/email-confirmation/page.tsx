@@ -18,11 +18,7 @@ const EmailConfirmationPage: React.FC = async () => {
   const referer = header.get('referer')
   const origin = referer ? new URL(referer).pathname : '/'
 
-  if (!session) {
-    redirect(createSearchParamsToURL(origin)(['status', 'no-session']))
-  }
-
-  if (session.user_metadata.email_verified) {
+  if (session && session.user_metadata.email_verified) {
     redirect(createSearchParamsToURL(origin)(['status', 'already-verified-email']))
   }
 
@@ -38,6 +34,9 @@ const EmailConfirmationPage: React.FC = async () => {
         인증을 완료해 주세요
       </p>
       <div className="flex flex-wrap items-center justify-center gap-2">
+        <Button href={PATH.ROOT} variant="default" component={Link}>
+          메인으로
+        </Button>
         <Button href={PATH.INITIAL_SETTING} variant="default" component={Link}>
           다음 단계로
         </Button>

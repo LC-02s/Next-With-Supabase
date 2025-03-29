@@ -5,7 +5,7 @@ import { IconCamera, IconEdit } from '@tabler/icons-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useSession } from '@/entities/auth'
-import { useFollowerCount, useFollowingCount } from '@/entities/following/api'
+import { useFollowerCount, useFollowingCount } from '@/entities/following'
 import { useProfileQuery, UserProfile as IUserProfile } from '@/entities/profile'
 import { PATH } from '@/shared/config'
 

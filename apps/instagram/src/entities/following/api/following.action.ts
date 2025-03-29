@@ -26,7 +26,7 @@ export const getFollowingList = async ({
     .from('following')
     .select('*')
     .eq('follower', userId)
-    .eq('is_banned', false)
+    .is('is_banned', false)
     .order('id', { ascending: true })
 
   if (!first) {
@@ -91,7 +91,7 @@ export const getFollowerList = async ({
     .from('following')
     .select('*')
     .eq('following', userId)
-    .eq('is_banned', false)
+    .is('is_banned', false)
     .order('id', { ascending: true })
 
   if (!first) {
@@ -162,7 +162,7 @@ export const unfollowUser = async ({ userId, following }: UnfollowUserParams): P
     .delete()
     .eq('follower', userId)
     .eq('following', following)
-    .eq('is_banned', false)
+    .is('is_banned', false)
 
   if (error) {
     throw new Exception('팔로우 취소에 실패했어요')
@@ -184,6 +184,10 @@ export const isFollowing = async ({ userId, following }: IsFollowingParams): Pro
     .eq('following', following)
     .single()
 
+  if (error?.code === 'PGRST116') {
+    return false
+  }
+
   if (error) {
     throw new Exception('팔로우 여부 조회에 실패했어요')
   }
@@ -198,16 +202,17 @@ export interface GetFollowingCountParams {
 export const getFollowingCount = async ({ userId }: GetFollowingCountParams): Promise<number> => {
   const client = await createServerSupabaseClient()
 
-  const { count, error } = await client
+  const { data, error } = await client
     .from('following')
-    .select('*', { count: 'exact' })
+    .select('*')
     .eq('follower', userId)
+    .is('is_banned', false)
 
-  if (error || count === null) {
+  if (error || !data) {
     throw new Exception('팔로우 수 조회에 실패했어요')
   }
 
-  return count
+  return data.length
 }
 
 export interface GetFollowerCountParams {
@@ -217,14 +222,15 @@ export interface GetFollowerCountParams {
 export const getFollowerCount = async ({ userId }: GetFollowerCountParams): Promise<number> => {
   const client = await createServerSupabaseClient()
 
-  const { count, error } = await client
+  const { data, error } = await client
     .from('following')
-    .select('*', { count: 'exact' })
+    .select('*')
     .eq('following', userId)
+    .is('is_banned', false)
 
-  if (error || count === null) {
+  if (error || !data) {
     throw new Exception('팔로워 수 조회에 실패했어요')
   }
 
-  return count
+  return data.length
 }
